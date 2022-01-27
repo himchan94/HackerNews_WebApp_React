@@ -2,7 +2,19 @@ import React from "react";
 import styled from "styled-components";
 
 const ImageBox = (props) => {
-  const { image, margin, br, width, height, alt } = props;
+  const {
+    image,
+    margin,
+    br,
+    width,
+    height,
+    alt,
+    position,
+    top,
+    left,
+    right,
+    bottom,
+  } = props;
   const attr = {
     image,
     margin,
@@ -10,6 +22,11 @@ const ImageBox = (props) => {
     width,
     height,
     alt,
+    position,
+    top,
+    left,
+    right,
+    bottom,
   };
 
   return <ImageContainer {...attr} />;
@@ -22,6 +39,7 @@ ImageBox.defaultProps = {
   height: "100%",
   padding: false,
   margin: false,
+  position: "static",
 };
 
 const ImageContainer = styled.img.attrs((props) => ({
@@ -32,4 +50,9 @@ const ImageContainer = styled.img.attrs((props) => ({
   height: ${(props) => props.height};
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
   ${(props) => (props.br ? `border-radius: ${props.br};` : "")}
+  ${(props) => (props.right ? `right: ${props.right};` : "")}
+  ${(props) => (props.top ? `top: ${props.top};` : "")}
+  ${(props) => (props.left ? `left: ${props.left};` : "")}
+  ${(props) => (props.bottom ? `bottom: ${props.bottom};` : "")};
+  position: ${(props) => props.position};
 `;
