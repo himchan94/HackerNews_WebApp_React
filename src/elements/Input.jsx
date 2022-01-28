@@ -20,7 +20,7 @@ const InputContainer = styled.div`
   background-color: #2c2d32;
   border-radius: 6px;
   width: 67%;
-  padding: 0.438em 0.375em;
+  padding: 0.438em 1.063em 0.438em 0.375em;
 `;
 
 const InputArea = styled.input.attrs((props) => ({
@@ -28,9 +28,10 @@ const InputArea = styled.input.attrs((props) => ({
   type: "text",
 }))`
   border: none;
-  color: 838489;
+  color: #838489;
   background-color: #2c2d32;
   margin-left: 0.375em;
   width: 100%;
   height: 2em;
+  font-size: 1em;
 `;
