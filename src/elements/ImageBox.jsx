@@ -5,6 +5,7 @@ const ImageBox = (props) => {
   const {
     image,
     margin,
+    padding,
     br,
     width,
     height,
@@ -14,10 +15,12 @@ const ImageBox = (props) => {
     left,
     right,
     bottom,
+    _click,
   } = props;
   const attr = {
     image,
     margin,
+    padding,
     br,
     width,
     height,
@@ -27,9 +30,9 @@ const ImageBox = (props) => {
     left,
     right,
     bottom,
+    _click,
   };
-
-  return <ImageContainer {...attr} />;
+  return <ImageContainer {...attr} onClick={_click} />;
 };
 
 export default ImageBox;
@@ -48,11 +51,12 @@ const ImageContainer = styled.img.attrs((props) => ({
 }))`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
-  ${(props) => (props.br ? `border-radius: ${props.br};` : "")}
-  ${(props) => (props.right ? `right: ${props.right};` : "")}
-  ${(props) => (props.top ? `top: ${props.top};` : "")}
-  ${(props) => (props.left ? `left: ${props.left};` : "")}
+  ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
+  ${(props) => (props.padding ? `padding: ${props.padding};` : "")};
+  ${(props) => (props.br ? `border-radius: ${props.br};` : "")};
+  ${(props) => (props.right ? `right: ${props.right};` : "")};
+  ${(props) => (props.top ? `top: ${props.top};` : "")};
+  ${(props) => (props.left ? `left: ${props.left};` : "")};
   ${(props) => (props.bottom ? `bottom: ${props.bottom};` : "")};
   position: ${(props) => props.position};
 `;

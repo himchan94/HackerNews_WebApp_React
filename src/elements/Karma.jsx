@@ -14,7 +14,11 @@ const Karma = ({ karma }) => {
     return <KarmaContainer grey>Karma</KarmaContainer>;
   }
 
-  return null;
+  return (
+    <KarmaContainer visable='hidden' grey>
+      Karma
+    </KarmaContainer>
+  );
 };
 
 export default Karma;
@@ -32,4 +36,5 @@ const KarmaContainer = styled.div`
   color: ${(props) => (props.grey ? "#838489" : "#ff3e00")};
   padding: 1px 8px 2px 8px;
   align-self: start;
+  visibility: ${(props) => (props.visable ? props.visable : "visible")};
 `;

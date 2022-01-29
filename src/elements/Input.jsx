@@ -1,7 +1,7 @@
 import React from "react";
-import Search from "../assets/searchIcon.svg";
-import { ImageBox } from ".";
 import styled from "styled-components";
+import { ImageBox } from ".";
+import { Search } from "../assets";
 
 const Input = () => {
   return (

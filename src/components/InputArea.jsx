@@ -1,8 +1,7 @@
 import React from "react";
-import Logo from "../assets/logo.svg";
-import Info from "../assets/infoIcon.svg";
-import { ImageBox, Input } from "../elements";
 import styled from "styled-components";
+import { ImageBox, Input } from "../elements";
+import { Logo, Info } from "../assets";
 
 const InputArea = () => {
   return (
@@ -32,4 +31,5 @@ const InputContainer = styled.div`
   align-items: center;
   background-color: #18191e;
   padding: 1em 1.25em;
+  box-sizing: border-box;
 `;

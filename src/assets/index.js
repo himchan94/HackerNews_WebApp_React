@@ -1,0 +1,10 @@
+export { default as ToggleUp } from "./toggleUp.svg";
+export { default as ToggleDown } from "./toggleDown.svg";
+export { default as Link } from "./link.svg";
+export { default as Score } from "./score.svg";
+export { default as Comment } from "./comment.svg";
+export { default as Logo } from "./logo.svg";
+export { default as Info } from "./infoIcon.svg";
+export { default as GoBack } from "./goback.svg";
+export { default as TopIcon } from "./topIcon.svg";
+export { default as Search } from "./searchIcon.svg";
