@@ -1,28 +1,34 @@
 import React from "react";
 import styled from "styled-components";
 import { ImageBox, Typhography } from "../elements";
-import Link from "../assets/link.svg";
-import Score from "../assets/score.svg";
-import Comment from "../assets/comment.svg";
+import { Link, Score, Comment } from "../assets";
+import { getSite } from "../functions";
 
-const CardBottom = () => {
+const CardBottom = ({ url, score, kids }) => {
   return (
     <Container>
       <IconWrapper>
-        <ImageBox image={Link} width='1em' height='1em' />
+        <ImageBox
+          image={Link}
+          width='1em'
+          height='1em'
+          padding='0.292em 0.083em'
+        />
         <Typhography
+          link
+          href={url}
           fontFamily='Source Code Pro'
           fontWeight='400'
           fontSize='0.625em'
           lineHeight='0.786em'
           color='#838489'
           margin='0 0 0 0.250em'>
-          github
+          {url && getSite(url)}
         </Typhography>
       </IconWrapper>
       <IconContainer>
         <IconWrapper margin='0 1em 0 0'>
-          <ImageBox image={Score} width='1em' height='1em' />
+          <ImageBox image={Score} width='1em' height='1em' padding='0.083em' />
           <Typhography
             fontFamily='Source Code Pro'
             fontWeight='400'
@@ -30,11 +36,16 @@ const CardBottom = () => {
             lineHeight='0.786em'
             color='#838489'
             margin='0 0 0 0.250em'>
-            138
+            {score && score}
           </Typhography>
         </IconWrapper>
         <IconWrapper>
-          <ImageBox image={Comment} width='1em' height='1em' />
+          <ImageBox
+            image={Comment}
+            width='1em'
+            height='1em'
+            padding='0.083em'
+          />
           <Typhography
             fontFamily='Source Code Pro'
             fontWeight='400'
@@ -42,7 +53,7 @@ const CardBottom = () => {
             lineHeight='0.786em'
             color='#FF3E00'
             margin='0 0 0 0.250em'>
-            23
+            {kids ? kids.length : 0}
           </Typhography>
         </IconWrapper>
       </IconContainer>
@@ -59,6 +70,7 @@ const Container = styled.div`
   height: auto;
   padding: 0.438em 1em;
   border-radius: 0 0 0.375em 0.375em;
+  box-sizing: border-box;
 `;
 
 const IconWrapper = styled.div`

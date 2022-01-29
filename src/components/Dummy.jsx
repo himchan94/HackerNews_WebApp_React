@@ -1,7 +1,7 @@
 import React from "react";
-import TopIcon from "../assets/topIcon.svg";
 import styled from "styled-components";
 import { ImageBox } from "../elements";
+import { TopIcon } from "../assets";
 
 const Dummy = () => {
   return (
