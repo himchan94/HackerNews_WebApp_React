@@ -11,4 +11,6 @@ body {
 #root {
   flex: 1;
   background-color: #18191e;
+  max-height: 56.25em;
+  overflow-y: auto;
 }

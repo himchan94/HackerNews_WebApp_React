@@ -32,4 +32,8 @@ const InputContainer = styled.div`
   background-color: #18191e;
   padding: 1em 1.25em;
   box-sizing: border-box;
+  height: 4em;
+  position: fixed;
+  top: 1.5em;
+  z-index: 1;
 `;
