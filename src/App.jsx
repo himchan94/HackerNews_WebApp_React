@@ -15,6 +15,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<MainPage />}>
           <Route index element={<TopPostContainer />} />
+          <Route path='top' element={<TopPostContainer />} />
           <Route path='new' element={<NewPostContainer />} />
           <Route path='ask' element={<AskPostContainer />} />
           <Route path='show' element={<ShowPostContainer />} />

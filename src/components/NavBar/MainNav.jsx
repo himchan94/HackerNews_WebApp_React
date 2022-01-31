@@ -26,7 +26,7 @@ const MainNav = ({ showDaily }) => {
       <NavUl>
         <NavLi>
           <NavLink
-            to='/'
+            to='/top'
             style={({ isActive }) => ({
               color: isActive ? "#FF3E00" : "#6B6C70",
               ...style,
