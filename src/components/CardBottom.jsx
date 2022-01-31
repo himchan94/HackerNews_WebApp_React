@@ -74,15 +74,21 @@ const Container = styled.div`
 `;
 
 const IconWrapper = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
+  width: 3.125em;
   height: 100%;
   margin: ${(props) => (props.margin ? props.margin : "")};
+
+& + & {
+  margin-left: 1em;
+}
+}
 `;
 
 const IconContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 2.625emem;
-  height: 100%;
+  width: 6.25em;
 `;

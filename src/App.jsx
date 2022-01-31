@@ -1,15 +1,25 @@
 import React from "react";
-import { DailyNewsCard, Dummy, InputArea } from "./components";
-import { Routes, Route, NavLink } from "react-router-dom";
-import { DailyNewsContainer, PostContainer } from "./container";
+import { Routes, Route } from "react-router-dom";
+import { Dummy } from "./components";
+import { MainPage } from "./pages";
+import {
+  TopPostContainer,
+  NewPostContainer,
+  AskPostContainer,
+  ShowPostContainer,
+} from "./container";
 const App = () => {
   return (
     <>
       <Dummy />
-      <InputArea />
-      <DailyNewsContainer />
-      <PostContainer />
-      <Routes></Routes>
+      <Routes>
+        <Route path='/' element={<MainPage />}>
+          <Route index element={<TopPostContainer />} />
+          <Route path='new' element={<NewPostContainer />} />
+          <Route path='ask' element={<AskPostContainer />} />
+          <Route path='show' element={<ShowPostContainer />} />
+        </Route>
+      </Routes>
     </>
   );
 };

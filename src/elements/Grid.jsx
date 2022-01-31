@@ -1,9 +1,20 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components";
 
-const Grid = (props) => {
-  const { is_flex, is_flexCol, width, margin, padding, bg, children, height } =
-    props;
+const Grid = forwardRef((props, ref) => {
+  const {
+    is_flex,
+    is_flexCol,
+    width,
+    margin,
+    padding,
+    bg,
+    children,
+    height,
+    position,
+    top,
+    left,
+  } = props;
   const styles = {
     is_flex,
     is_flexCol,
@@ -12,14 +23,19 @@ const Grid = (props) => {
     padding,
     bg,
     height,
+    position,
+    top,
+    left,
   };
 
   return (
     <React.Fragment>
-      <GridBox {...styles}>{children}</GridBox>
+      <GridBox ref={ref && ref} {...styles}>
+        {children}
+      </GridBox>
     </React.Fragment>
   );
-};
+});
 
 Grid.defaultProps = {
   chidren: null,
@@ -30,12 +46,19 @@ Grid.defaultProps = {
   padding: false,
   margin: false,
   bg: false,
+  position: "static",
+  top: "",
+  left: "",
 };
 
 const GridBox = styled.div`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   box-sizing: border-box;
+  position: ${(props) => props.position};
+  top: ${(props) => props.top};
+  left: ${(props) => props.left};
+  z-index: 1;
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
   ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}

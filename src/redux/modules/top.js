@@ -6,37 +6,71 @@ const initialState = {
   isLoading: false,
 };
 
-const LOADTOP = "post/LOADTOP";
-const LOADED = "post/LOADED";
+const LOADTOP_ID = "top/LOADTOP_ID";
+const LOADTOP_POST = "top/LOADTOP_POST";
+const LOADED = "top/LOADED";
 
-const loadTop = (top) => {
-  return { type: LOADTOP, top };
+const getId = (id) => {
+  return { type: LOADTOP_ID, id };
+};
+
+const getPost = (post) => {
+  return { type: LOADTOP_POST, post };
 };
 
 const loading = (status) => {
   return { type: LOADED, status };
 };
 
-export const getPost = (type) => async (dispatch, getState) => {
+export const loadPost = () => async (dispatch, getState) => {
+  if (getState().top.isLoading) return;
+
   dispatch(loading(true));
+
+  const ids = getState().top.id;
+  const idx = getState().top.post.length;
+
+  if (idx !== 0 && idx >= ids.length) {
+    dispatch(loading(false));
+    return;
+  }
+
+  const promises = ids
+    .slice(idx, idx + 9)
+    .map((id) =>
+      fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(
+        (response) => response.json()
+      )
+    );
+
+  const result = await Promise.all(promises);
+  dispatch(getPost(result));
+  dispatch(loading(false));
+};
+
+export const getPostId = (type) => async (dispatch, getState) => {
   const postId = await fetch(
     `https://hacker-news.firebaseio.com/v0/topstories.json`
   ).then((res) => res.json());
 
-  dispatch(loadTop(postId));
-
+  dispatch(getId(postId));
   dispatch(getNewlyNews());
 
-  dispatch(loading(false));
+  dispatch(loadPost());
 };
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case "post/LOADTOP":
-      const id = [...state.id, ...action.top];
+    case "top/LOADTOP_ID":
+      const id = [...state.id, ...action.id];
       return { ...state, id };
 
-    case "post/LOADED":
+    case "top/LOADTOP_POST":
+      const post = [...state.post, ...action.post];
+
+      return { ...state, post };
+
+    case "top/LOADED":
       return { ...state, isLoading: action.status };
 
     default:

@@ -18,6 +18,11 @@ const getDate = (unix) => {
 
     if (!hour_gap) {
       const minutes_gap = today.getMinutes() - converted.getMinutes();
+
+      if (!minutes_gap) {
+        const seconds_gap = today.getSeconds() - converted.getSeconds();
+        return `${seconds_gap} seconds ago`;
+      }
       return `${minutes_gap} minutes ago`;
     }
 

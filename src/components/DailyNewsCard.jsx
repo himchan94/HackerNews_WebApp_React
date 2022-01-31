@@ -1,10 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import { CardBottom } from ".";
 import { Karma, Typhography } from "../elements";
 import { getDate } from "../functions";
 
-const DailyNewsCard = ({ info }) => {
+const DailyNewsCard = memo(({ info }) => {
   const { by, id, kids, score, time, title, url, karma } = info;
 
   return (
@@ -26,7 +26,7 @@ const DailyNewsCard = ({ info }) => {
       <CardBottom url={url} score={score} kids={kids} />
     </Card>
   );
-};
+});
 
 export default DailyNewsCard;
 

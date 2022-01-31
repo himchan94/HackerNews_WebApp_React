@@ -5,7 +5,10 @@ import { Logo, Info } from "../assets";
 
 const InputArea = () => {
   return (
-    <InputContainer>
+    <InputContainer
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}>
       <ImageBox
         image={Logo}
         width='1.625em'
@@ -25,11 +28,15 @@ const InputArea = () => {
 
 export default InputArea;
 
-const InputContainer = styled.div`
+const InputContainer = styled.form`
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #18191e;
   padding: 1em 1.25em;
   box-sizing: border-box;
+  height: 4em;
+  position: fixed;
+  top: 1.5em;
+  z-index: 1;
 `;
