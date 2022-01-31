@@ -2,7 +2,12 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Dummy } from "./components";
 import { MainPage } from "./pages";
-import { TopPostContainer } from "./container";
+import {
+  TopPostContainer,
+  NewPostContainer,
+  AskPostContainer,
+  ShowPostContainer,
+} from "./container";
 const App = () => {
   return (
     <>
@@ -10,6 +15,9 @@ const App = () => {
       <Routes>
         <Route path='/' element={<MainPage />}>
           <Route index element={<TopPostContainer />} />
+          <Route path='new' element={<NewPostContainer />} />
+          <Route path='ask' element={<AskPostContainer />} />
+          <Route path='show' element={<ShowPostContainer />} />
         </Route>
       </Routes>
     </>
