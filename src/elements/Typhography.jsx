@@ -67,6 +67,7 @@ const Link = styled.a.attrs((props) => ({
   margin: ${(props) => props.margin};
   cursor: pointer;
   text-decoration: ${(props) => props.td};
+  white-space: nowrap;
 `;
 
 const Typho = styled.b`
