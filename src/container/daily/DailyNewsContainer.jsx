@@ -1,30 +1,32 @@
-import React, { useEffect } from "react";
+import React, { useEffect, forwardRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPostId } from "../../redux/modules/top";
 import styled from "styled-components";
 import { DailyNewsCard, Spinner } from "../../components";
 
-const DailyNewsContainer = () => {
+const DailyNewsContainer = forwardRef((props, ref) => {
   const daily = useSelector((state) => state.info.newlyNews);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPostId());
+    if (!daily.length) {
+      dispatch(getPostId());
+    }
   }, []);
 
   return (
-    <Section>
+    <Section ref={ref && ref}>
       <MainTitle>Daily News</MainTitle>
       <CardContainer>
         {daily.length !== 0 ? (
-          daily.map((info) => <DailyNewsCard key={info.id} info={info} />)
+          daily.map((info) => <DailyNewsCard key={info.title} info={info} />)
         ) : (
           <Spinner />
         )}
       </CardContainer>
     </Section>
   );
-};
+});
 
 export default DailyNewsContainer;
 
@@ -33,6 +35,7 @@ const Section = styled.section`
   margin-bottom: 1.75em;
   padding: 0 0 0 1.313em;
   box-sizing: border-box;
+  height: 20.563em;
 `;
 
 const MainTitle = styled.h2`
