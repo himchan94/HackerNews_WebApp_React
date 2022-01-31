@@ -1,20 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import styled from "styled-components";
 import { CommentBox, CardBottom } from ".";
 import { ImageBox } from "../elements";
 import { ToggleDown, ToggleUp } from "../assets";
 
-const PostCard = () => {
+const PostCard = memo(({ post }) => {
   const [toggle, setToggle] = useState(false);
-
+  const { by, id, kids, score, time, title, url } = post;
   return (
     <Card>
       <UpperContainer>
-        <Title>
-          comp/card/contents/light Width 272px Height 63px Blend Pass through
-          Copy Metal Detectorist Discovers One of England’s Earliest Gold Coins
-          in a Farm Field
-        </Title>
+        <Title>{title}</Title>
         {toggle ? (
           <ImageBox
             _click={() => {
@@ -48,12 +44,12 @@ const PostCard = () => {
         )}
       </UpperContainer>
 
-      <CommentBox toggle={toggle} />
+      <CommentBox by={by} time={time} toggle={toggle} />
 
-      <CardBottom url={""} score={999999} kids={[1, 2, 3, 4]} />
+      <CardBottom url={url} score={score} kids={kids} />
     </Card>
   );
-};
+});
 
 export default PostCard;
 
@@ -63,16 +59,14 @@ const Card = styled.article`
   background-color: #2c2d32;
   border-radius: 0.375em;
   font-family: "Noto Sans", sans-serif;
-  margin: 0 1em 0 0;
+  margin: 0 1em 0.75em 0;
   flex-shrink: 0;
-  margin-bottm: 0.75em;
 `;
 
 const UpperContainer = styled.div`
   position: relative;
   padding: 1em 0.5em 1em 1em;
   border-bottom: 0.063em solid #38393d;
-  height: 14.938em;
   height: 5.938em;
   box-sizing: border-box;
 `;

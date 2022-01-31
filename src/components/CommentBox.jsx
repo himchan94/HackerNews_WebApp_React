@@ -1,8 +1,9 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { Grid, Typhography } from "../elements";
+import { getDate } from "../functions";
 
-const CommentBox = ({ toggle }) => {
+const CommentBox = ({ toggle, by, time }) => {
   return (
     <TransitionBox toggle={toggle}>
       <CommentContainer>
@@ -16,7 +17,7 @@ const CommentBox = ({ toggle }) => {
             lineHeight='0.938em'
             color='#FF3E00'
             margin='0 0.5em 0 0'>
-            Cameron Williamson
+            {by}
           </Typhography>
           <Typhography
             fontFamily='Source Code Pro'
@@ -25,7 +26,7 @@ const CommentBox = ({ toggle }) => {
             lineHeight='0.938em'
             ls='-0.02em'
             color='#838489'>
-            11 minutes ago
+            {getDate(time)}
           </Typhography>
         </Grid>
         <Grid height='4.000em'>
