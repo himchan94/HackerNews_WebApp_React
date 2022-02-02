@@ -31,9 +31,12 @@ const TopPostContainer = () => {
   return (
     <Section>
       {posts.length !== 0 &&
-        posts.map((post) => (
-          <PostCard key={post.id} post={post} category='top' />
-        ))}
+        posts.map((post) => {
+          if (post) {
+            return <PostCard key={post.id} post={post} category='top' />;
+          }
+          return null;
+        })}
       {isLoading && <Spinner />}
     </Section>
   );

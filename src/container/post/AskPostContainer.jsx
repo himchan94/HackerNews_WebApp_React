@@ -35,9 +35,13 @@ const AskPostContainer = () => {
   return (
     <Section>
       {posts.length !== 0 &&
-        posts.map((post) => (
-          <PostCard key={post.id} post={post} category='ask' />
-        ))}
+        posts.map((post) => {
+          if (post) {
+            return <PostCard key={post.id} post={post} category='ask' />;
+          }
+
+          return null;
+        })}
       {isLoading && <Spinner />}
     </Section>
   );

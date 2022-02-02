@@ -8,6 +8,7 @@ import { ToggleDown, ToggleUp } from "../assets";
 const PostCard = memo(({ post, category }) => {
   const [toggle, setToggle] = useState(false);
   const navigate = useNavigate();
+
   const { by, id, kids, score, time, title, url } = post;
   return (
     <Card>
