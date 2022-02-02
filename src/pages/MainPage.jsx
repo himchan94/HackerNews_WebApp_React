@@ -11,7 +11,7 @@ const MainPage = () => {
 
   useEffect(() => {
     const root = document.getElementById("root");
-    const scroll = root.addEventListener("scroll", (e) => {
+    const scroll = (e) => {
       if (dailyRef.current) {
         if (e.target.scrollTop > dailyRef.current.clientHeight) {
           setShowDaily(false);
@@ -21,7 +21,9 @@ const MainPage = () => {
       if (e.target.scrollTop === 0 && !dailyRef.current) {
         setShowDaily(true);
       }
-    });
+    };
+
+    root.addEventListener("scroll", scroll);
 
     return () => {
       root.removeEventListener("scroll", scroll);
