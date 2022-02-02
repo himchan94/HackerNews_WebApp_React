@@ -28,20 +28,24 @@ export const loadPost = () => async (dispatch, getState) => {
   const ids = getState().show.id;
   const idx = getState().show.post.length;
 
-  if (idx !== 0 && idx >= ids.length) {
+  if (idx !== 0 && idx > ids.length) {
     dispatch(loading(false));
     return;
   }
 
-  const promises = ids
-    .slice(idx, idx + 9)
-    .map((id) =>
-      fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(
-        (response) => response.json()
-      )
-    );
+  const promises = ids.slice(idx, idx + 9).map((id) => {
+    if (id) {
+      return fetch(
+        `https://hacker-news.firebaseio.com/v0/item/${id}.json`
+      ).then((response) => response.json());
+    }
 
-  const result = await Promise.all(promises);
+    return null;
+  });
+
+  const exactPromises = promises.filter((list) => list !== null);
+
+  const result = await Promise.all(exactPromises);
   dispatch(getPost(result));
   dispatch(loading(false));
 };
