@@ -52,13 +52,13 @@ Grid.defaultProps = {
 };
 
 const GridBox = styled.div`
+  z-index: 1;
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   box-sizing: border-box;
   position: ${(props) => props.position};
   top: ${(props) => props.top};
   left: ${(props) => props.left};
-  z-index: 1;
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
   ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}

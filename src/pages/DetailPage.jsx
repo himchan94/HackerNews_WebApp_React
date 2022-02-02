@@ -118,7 +118,7 @@ const PostInfo = styled.section`
 `;
 
 const UserName = styled.h2`
-  font-family: "Noto Sans";
+  font-family: Noto Sans;
   font-size: 1.5em;
   font-style: normal;
   line-height: 1.819em;

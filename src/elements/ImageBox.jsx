@@ -16,6 +16,7 @@ const ImageBox = (props) => {
     right,
     bottom,
     _click,
+    zIndex,
   } = props;
   const attr = {
     image,
@@ -31,7 +32,9 @@ const ImageBox = (props) => {
     right,
     bottom,
     _click,
+    zIndex,
   };
+
   return <ImageContainer {...attr} onClick={_click} />;
 };
 
@@ -44,6 +47,8 @@ ImageBox.defaultProps = {
   margin: false,
   position: "static",
   pointer: "none",
+  _click: () => {},
+  zIndex: "",
 };
 
 const ImageContainer = styled.img.attrs((props) => ({
@@ -61,4 +66,5 @@ const ImageContainer = styled.img.attrs((props) => ({
   ${(props) => (props.bottom ? `bottom: ${props.bottom};` : "")};
   position: ${(props) => props.position};
   cursor: ${(props) => props.pointer};
+  z-index: ${(props) => props.zIndex};
 `;

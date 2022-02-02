@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { Grid, Typhography } from "../elements";
-import { getDate } from "../functions";
+import { Grid, Typhography } from "../../elements";
+import { getDate } from "../../functions";
 
 const CommentBox = ({ toggle, by, time }) => {
   return (
