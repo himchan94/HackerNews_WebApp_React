@@ -34,13 +34,10 @@ const ShowPostContainer = () => {
 
   return (
     <Section>
-      {posts.length !== 0 ? (
+      {posts.length !== 0 &&
         posts.map((post) => (
           <PostCard key={post.id} post={post} category='show' />
-        ))
-      ) : (
-        <Spinner />
-      )}
+        ))}
       {isLoading && <Spinner />}
     </Section>
   );

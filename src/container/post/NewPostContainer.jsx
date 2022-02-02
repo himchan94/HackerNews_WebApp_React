@@ -34,13 +34,10 @@ const NewPostContainer = () => {
 
   return (
     <Section>
-      {posts.length !== 0 ? (
+      {posts.length !== 0 &&
         posts.map((post) => (
           <PostCard key={post.id} post={post} category='news' />
-        ))
-      ) : (
-        <Spinner />
-      )}
+        ))}
       {isLoading && <Spinner />}
     </Section>
   );

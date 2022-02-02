@@ -30,13 +30,10 @@ const TopPostContainer = () => {
 
   return (
     <Section>
-      {posts.length !== 0 ? (
+      {posts.length !== 0 &&
         posts.map((post) => (
           <PostCard key={post.id} post={post} category='top' />
-        ))
-      ) : (
-        <Spinner />
-      )}
+        ))}
       {isLoading && <Spinner />}
     </Section>
   );
