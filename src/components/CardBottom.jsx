@@ -13,6 +13,7 @@ const CardBottom = ({ url, score, kids }) => {
           width='1em'
           height='1em'
           padding='0.292em 0.083em'
+          alt='link icon'
         />
         <Typhography
           link
@@ -28,7 +29,13 @@ const CardBottom = ({ url, score, kids }) => {
       </IconWrapper>
       <IconContainer>
         <IconWrapper margin='0 1em 0 0'>
-          <ImageBox image={Score} width='1em' height='1em' padding='0.083em' />
+          <ImageBox
+            image={Score}
+            width='1em'
+            height='1em'
+            padding='0.083em'
+            commnet='score icon'
+          />
           <Typhography
             fontFamily='Source Code Pro'
             fontWeight='400'
@@ -45,6 +52,7 @@ const CardBottom = ({ url, score, kids }) => {
             width='1em'
             height='1em'
             padding='0.083em'
+            alt='comment icon'
           />
           <Typhography
             fontFamily='Source Code Pro'
@@ -67,7 +75,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: auto;
+  height: 2em;
   padding: 0.438em 1em;
   border-radius: 0 0 0.375em 0.375em;
   box-sizing: border-box;

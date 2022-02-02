@@ -43,6 +43,7 @@ ImageBox.defaultProps = {
   padding: false,
   margin: false,
   position: "static",
+  pointer: "none",
 };
 
 const ImageContainer = styled.img.attrs((props) => ({
@@ -59,4 +60,5 @@ const ImageContainer = styled.img.attrs((props) => ({
   ${(props) => (props.left ? `left: ${props.left};` : "")};
   ${(props) => (props.bottom ? `bottom: ${props.bottom};` : "")};
   position: ${(props) => props.position};
+  cursor: ${(props) => props.pointer};
 `;

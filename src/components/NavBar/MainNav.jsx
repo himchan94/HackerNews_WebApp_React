@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, memo } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { Grid } from "../../elements";
