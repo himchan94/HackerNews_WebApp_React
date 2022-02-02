@@ -1,5 +1,5 @@
 const initialState = {
-  newlyNews: [],
+  post: [],
   read: [],
 };
 
@@ -11,11 +11,7 @@ const loadNewlyNews = (daily) => {
 
 export const getNewlyNews = () => async (dispatch, getState) => {
   try {
-    const randomList = [];
-    for (let i = 0; i < 10; i++) {
-      const randomIdx = Math.floor(Math.random() * 501);
-      randomList.push(getState().top.id[randomIdx]);
-    }
+    const randomList = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
     const promises = randomList.map((id) =>
       fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(
@@ -41,8 +37,8 @@ export const getNewlyNews = () => async (dispatch, getState) => {
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case "UPDATE_DAILY":
-      const newlyNews = [...action.daily];
-      return { ...state, newlyNews };
+      const post = [...action.daily];
+      return { ...state, post };
 
     default:
       return state;

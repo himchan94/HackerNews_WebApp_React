@@ -8,3 +8,4 @@ export { default as CommentBox } from "./CommentBox";
 export { default as MainNav } from "./NavBar/MainNav";
 export { default as ProfileNav } from "./NavBar/ProfileNav";
 export { default as SearchNav } from "./NavBar/SearchNav";
+export { default as DetailHeader } from "./DetailHeader";

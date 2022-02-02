@@ -14,6 +14,9 @@ const Typhography = ({
   color,
   margin,
   children,
+  block,
+  textShadow,
+  ws,
 }) => {
   const styles = {
     link,
@@ -28,6 +31,9 @@ const Typhography = ({
     color,
     margin,
     children,
+    block,
+    textShadow,
+    ws,
   };
 
   if (link) {
@@ -42,8 +48,8 @@ export default Typhography;
 Typhography.defaultProps = {
   link: false,
   td: "none",
-  href: "",
-  fontFamily: "'Noto Sans', sans-serif",
+  href: "#",
+  fontFamily: "Noto Sans",
   fontSize: "1em",
   fontStyle: "normal",
   fontWeight: "",
@@ -52,6 +58,9 @@ Typhography.defaultProps = {
   color: "#000",
   margin: "",
   children: null,
+  block: false,
+  textShadow: "",
+  ws: "",
 };
 
 const Link = styled.a.attrs((props) => ({
@@ -71,6 +80,7 @@ const Link = styled.a.attrs((props) => ({
 `;
 
 const Typho = styled.b`
+  display: ${(props) => (props.block ? "inline-block" : "inline")};
   font-family: ${(props) => props.fontFamily};
   font-size: ${(props) => props.fontSize};
   font-style: ${(props) => props.fontStyle};
@@ -79,4 +89,6 @@ const Typho = styled.b`
   color: ${(props) => props.color};
   margin: ${(props) => props.margin};
   letter-spacing: ${(props) => props.ls};
+  text-shadow: ${(props) => props.textShadow};
+  white-space: ${(props) => props.ws};
 `;

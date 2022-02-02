@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, memo } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { Grid } from "../../elements";
@@ -26,7 +26,7 @@ const MainNav = ({ showDaily }) => {
       <NavUl>
         <NavLi>
           <NavLink
-            to='/'
+            to='/top'
             style={({ isActive }) => ({
               color: isActive ? "#FF3E00" : "#6B6C70",
               ...style,

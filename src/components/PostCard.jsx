@@ -1,16 +1,23 @@
 import React, { useState, memo } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { CommentBox, CardBottom } from ".";
 import { ImageBox } from "../elements";
 import { ToggleDown, ToggleUp } from "../assets";
 
-const PostCard = memo(({ post }) => {
+const PostCard = memo(({ post, category }) => {
   const [toggle, setToggle] = useState(false);
+  const navigate = useNavigate();
   const { by, id, kids, score, time, title, url } = post;
   return (
     <Card>
       <UpperContainer>
-        <Title>{title}</Title>
+        <Title
+          onClick={() => {
+            navigate(`/detail/${category}/${id}`);
+          }}>
+          {title}
+        </Title>
         {toggle ? (
           <ImageBox
             _click={() => {

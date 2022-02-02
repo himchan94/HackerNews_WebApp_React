@@ -12,14 +12,16 @@ const TopPostContainer = () => {
   useEffect(() => {
     const root = document.getElementById("root");
 
-    const scroll = root.addEventListener("scroll", (e) => {
+    const scroll = (e) => {
       const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
 
       if (scrollHeight - scrollTop - clientHeight - 100 < 0) {
         if (isLoading) return;
         dispatch(loadPost());
       }
-    });
+    };
+
+    root.addEventListener("scroll", scroll);
 
     return () => {
       root.removeEventListener("scroll", scroll);
@@ -29,7 +31,9 @@ const TopPostContainer = () => {
   return (
     <Section>
       {posts.length !== 0 ? (
-        posts.map((post) => <PostCard key={post.id} post={post} />)
+        posts.map((post) => (
+          <PostCard key={post.id} post={post} category='top' />
+        ))
       ) : (
         <Spinner />
       )}

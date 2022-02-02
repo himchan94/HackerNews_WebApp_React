@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { DailyNewsCard, Spinner } from "../../components";
 
 const DailyNewsContainer = forwardRef((props, ref) => {
-  const daily = useSelector((state) => state.info.newlyNews);
+  const daily = useSelector((state) => state.info.post);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,11 +31,11 @@ const DailyNewsContainer = forwardRef((props, ref) => {
 export default DailyNewsContainer;
 
 const Section = styled.section`
+  height: 20.563em;
   margin-top: 1.25em;
   margin-bottom: 1.75em;
   padding: 0 0 0 1.313em;
   box-sizing: border-box;
-  height: 20.563em;
 `;
 
 const MainTitle = styled.h2`

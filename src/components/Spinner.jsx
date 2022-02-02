@@ -11,7 +11,7 @@ const Spin = styled.div`
   border-radius: 50%;
   width: 10em;
   height: 10em;
-  margin: 60px auto;
+  margin: 3.75em auto;
   font-size: 0.625em;
   position: relative;
   text-indent: -9999em;

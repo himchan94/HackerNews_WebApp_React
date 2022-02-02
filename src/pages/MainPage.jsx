@@ -33,15 +33,11 @@ const MainPage = () => {
       <InputArea />
       <Grid padding='5.5em 0 0 0 '>
         {showDaily && <DailyNewsContainer ref={dailyRef} />}
-        <ScrollContainer>
-          <MainNav showDaily={showDaily} />
-          <Outlet />
-        </ScrollContainer>
+        <MainNav showDaily={showDaily} />
+        <Outlet />
       </Grid>
     </>
   );
 };
 
 export default MainPage;
-
-const ScrollContainer = styled.div``;

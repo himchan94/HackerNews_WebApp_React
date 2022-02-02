@@ -1,27 +1,36 @@
 import React, { memo } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { CardBottom } from ".";
-import { Karma, Typhography } from "../elements";
+import { Karma, Typhography, Grid } from "../elements";
 import { getDate } from "../functions";
 
 const DailyNewsCard = memo(({ info }) => {
   const { by, id, kids, score, time, title, url, karma } = info;
+  const navigate = useNavigate();
 
   return (
     <Card>
       <UpperContainer>
         <Karma karma={karma} />
         <Author>{by}</Author>
-        <Title>{title}</Title>
-        <Typhography
-          fontFamily='Source Code Pro'
-          fontWeight='400'
-          fontSize='0.625em'
-          lineHeight='0.786em'
-          color='#838489'
-          margin='0 0 0.750em 0'>
-          {time && getDate(time)}
-        </Typhography>
+        <Title
+          onClick={() => {
+            navigate(`/detail/info/${id}`);
+          }}>
+          {title}
+        </Title>
+        <Grid height='auto' position='absolute' top='13.125em' left='1em'>
+          <Typhography
+            fontFamily='Source Code Pro'
+            fontWeight='400'
+            fontSize='0.625em'
+            lineHeight='0.786em'
+            color='#838489'
+            margin='0 0 0.750em 0'>
+            {time && getDate(time)}
+          </Typhography>
+        </Grid>
       </UpperContainer>
       <CardBottom url={url} score={score} kids={kids} />
     </Card>
@@ -41,10 +50,11 @@ const Card = styled.article`
 `;
 
 const UpperContainer = styled.div`
+  height: 14.938em;
   padding: 1em;
   border-bottom: 0.063em solid #38393d;
-  height: 14.938em;
   box-sizing: border-box;
+  position: relative;
 `;
 
 const Author = styled.b`
