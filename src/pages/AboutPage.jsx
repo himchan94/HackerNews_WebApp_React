@@ -30,7 +30,7 @@ const AboutPage = () => {
             href='https://kit.svelte.dev/'>
             SvelteKit
           </Typhography>
-          <br />, an application framework for{" "}
+          ,<br /> an application framework for{" "}
           <Typhography
             link
             color='#FF3E00'
