@@ -1,9 +1,10 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { Loader } from "..";
 import { Grid, Typhography } from "../../elements";
 import { getDate } from "../../functions";
 
-const CommentBox = ({ toggle, by, time }) => {
+const CommentBox = ({ toggle, by, time, comment, loading }) => {
   return (
     <TransitionBox toggle={toggle}>
       <CommentContainer>
@@ -30,18 +31,21 @@ const CommentBox = ({ toggle, by, time }) => {
           </Typhography>
         </Grid>
         <Grid height='4.000em'>
-          <Typhography
-            fontFamily='Roboto'
-            fontWeight='400'
-            fontSize='0.750em'
-            lineHeight='0.975em'
-            color='#838489'
-            margin='0.250em 0 0 0'>
-            Completely agree. Here's another example: BitDefender (antivirus)
-            passes your email and MD5 of your password in the hash when you want
-            to go to your dashboard. passes your email and MD5 of your password
-            in the hash when you want to go to your dashboard.v
-          </Typhography>
+          {loading ? (
+            <Loader />
+          ) : comment ? (
+            <Comment htmlText={comment}></Comment>
+          ) : (
+            <Typhography
+              fontFamily='Roboto'
+              fontWeight='400'
+              fontSize='0.750em'
+              lineHeight='0.975em'
+              color='#838489'
+              margin='0.250em 0 0 0'>
+              "🤦‍♂️Nothing here🤦‍♂️, Write new comment🐧
+            </Typhography>
+          )}
         </Grid>
       </CommentContainer>
     </TransitionBox>
@@ -71,4 +75,18 @@ const TransitionBox = styled.div`
     css`
       height: 7.75em;
     `}
+`;
+
+const Comment = styled.p.attrs((props) => ({
+  dangerouslySetInnerHTML: { __html: props.htmlText },
+}))`
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 0.75em;
+  line-height: 0.975em;
+  color: #838489;
+  margin: 0.25em 0 0 0;
+  word-wrap: break-word; /* IE 5.5-7 */
+  white-space: -moz-pre-wrap; /* Firefox 1.0-2.0 */
+  white-space: pre-wrap; /* current browsers */
 `;
