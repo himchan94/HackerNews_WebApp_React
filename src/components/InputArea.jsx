@@ -19,6 +19,9 @@ const InputArea = () => {
         height='2.000em'
         margin='0 1.125em 0 0'
         alt='logo'
+        _click={() => {
+          navigate("/");
+        }}
       />
       <Input />
       <ImageBox
