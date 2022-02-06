@@ -17,6 +17,9 @@ const Typhography = ({
   block,
   textShadow,
   ws,
+  verticalAlign,
+  _click,
+  newtab,
 }) => {
   const styles = {
     link,
@@ -34,13 +37,22 @@ const Typhography = ({
     block,
     textShadow,
     ws,
+    verticalAlign,
   };
 
   if (link) {
-    return <Link {...styles}>{children}</Link>;
+    return (
+      <Link newtab={newtab} onClick={_click} {...styles}>
+        {children}
+      </Link>
+    );
   }
 
-  return <Typho {...styles}>{children}</Typho>;
+  return (
+    <Typho onClick={_click} {...styles}>
+      {children}
+    </Typho>
+  );
 };
 
 export default Typhography;
@@ -61,11 +73,13 @@ Typhography.defaultProps = {
   block: false,
   textShadow: "",
   ws: "",
+  verticalAlign: "baseline",
+  _click: () => {},
 };
 
 const Link = styled.a.attrs((props) => ({
   href: `${props ? props.href : ""}`,
-  target: "_blank",
+  target: `${props.newtab ? "_blank" : "_self"}`,
 }))`
   font-family: ${(props) => props.fontFamily};
   font-size: ${(props) => props.fontSize};
@@ -91,4 +105,5 @@ const Typho = styled.b`
   letter-spacing: ${(props) => props.ls};
   text-shadow: ${(props) => props.textShadow};
   white-space: ${(props) => props.ws};
+  vertical-align: ${(props) => props.verticalAlign};
 `;
