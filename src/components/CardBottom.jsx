@@ -19,6 +19,7 @@ const CardBottom = ({ url, score, kids, id }) => {
         />
         <Typhography
           link
+          newtab
           href={url}
           fontFamily='Source Code Pro'
           fontWeight='400'
