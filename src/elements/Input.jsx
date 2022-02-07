@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { ImageBox } from ".";
 import { Search } from "../assets";
 
-const Input = () => {
+const Input = ({ _click, width }) => {
   return (
-    <InputContainer>
+    <InputContainer onClick={_click} width={width}>
       <ImageBox image={Search} alt='search icon' width='0.813em' />
       <InputArea placeholder='Search' />
     </InputContainer>
@@ -14,12 +14,17 @@ const Input = () => {
 
 export default Input;
 
+Input.defaultProps = {
+  _click: () => {},
+  width: "100%",
+};
+
 const InputContainer = styled.div`
   display: flex;
   align-items: center;
   background-color: #2c2d32;
-  border-radius: 6px;
-  width: 67%;
+  border-radius: 0.375em;
+  width: ${(props) => props.width};
   padding: 0.438em 1.063em 0.438em 0.375em;
 `;
 
