@@ -20,12 +20,13 @@ Input.defaultProps = {
 };
 
 const InputContainer = styled.div`
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   background-color: #2c2d32;
   border-radius: 0.375em;
   width: ${(props) => props.width};
-  padding: 0.438em 1.063em 0.438em 0.375em;
+  padding: 0.438em 1em 0.438em 0.375em;
 `;
 
 const InputArea = styled.input.attrs((props) => ({

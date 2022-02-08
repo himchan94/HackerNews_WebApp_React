@@ -15,6 +15,7 @@ const Button = ({
   lineHeight,
   padding,
   margin,
+  border,
   children,
 }) => {
   const styles = {
@@ -30,6 +31,7 @@ const Button = ({
     lineHeight,
     padding,
     margin,
+    border,
   };
   return (
     <StyledButton onClick={_click} {...styles}>
@@ -55,6 +57,7 @@ Button.defaultProps = {
   lineHeight: "1.313em",
   padding: false,
   margin: false,
+  border: "none",
 };
 
 const StyledButton = styled.button`
@@ -62,7 +65,7 @@ const StyledButton = styled.button`
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  border: none;
+  border: ${(props) => props.border};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   border-radius: ${(props) => props.br};
@@ -72,6 +75,7 @@ const StyledButton = styled.button`
   font-style: ${(props) => props.fontStyle};
   font-weight: ${(props) => props.fontWeight};
   line-height: ${(props) => props.lineHeight};
+  white-space: nowrap;
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
   ${(props) => (props.bg ? `background: ${props.bg};` : "transparent")}
