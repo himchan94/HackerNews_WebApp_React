@@ -1,9 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Grid, ImageBox } from "../elements";
 import { GoBack, Info } from "../assets";
 
-const DetailHeader = ({ type }) => {
+const DetailHeader = memo(({ type }) => {
   const navigate = useNavigate();
   return (
     <Grid height='4.000em' position='relative'>
@@ -36,6 +36,6 @@ const DetailHeader = ({ type }) => {
       )}
     </Grid>
   );
-};
+});
 
 export default DetailHeader;
