@@ -1,7 +1,14 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Dummy } from "./components";
-import { MainPage, AboutPage, DetailPage, CommentPage } from "./pages";
+import {
+  MainPage,
+  AboutPage,
+  DetailPage,
+  CommentPage,
+  UserPage,
+  SearchPage,
+} from "./pages";
 import {
   TopPostContainer,
   NewPostContainer,
@@ -23,6 +30,8 @@ const App = () => {
         </Route>
         <Route path='/detail/*' element={<DetailPage />} />
         <Route path='/comment/*' element={<CommentPage />} />
+        <Route path='/user/*' element={<UserPage />} />
+        <Route path='/search' element={<SearchPage />} />
         <Route path='/about' element={<AboutPage />} />
       </Routes>
     </>

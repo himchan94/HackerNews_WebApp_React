@@ -1,10 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ImageBox, Typhography } from "../elements";
 import { Link, Score, Comment } from "../assets";
 import { getSite } from "../functions";
 
-const CardBottom = ({ url, score, kids }) => {
+const CardBottom = ({ url, score, kids, id }) => {
+  const navigate = useNavigate();
   return (
     <Container>
       <IconWrapper>
@@ -17,6 +19,7 @@ const CardBottom = ({ url, score, kids }) => {
         />
         <Typhography
           link
+          newtab
           href={url}
           fontFamily='Source Code Pro'
           fontWeight='400'
@@ -46,7 +49,10 @@ const CardBottom = ({ url, score, kids }) => {
             {score && score}
           </Typhography>
         </IconWrapper>
-        <IconWrapper>
+        <IconWrapper
+          onClick={() => {
+            navigate(`/comment/${id}`);
+          }}>
           <ImageBox
             image={Comment}
             width='1em'

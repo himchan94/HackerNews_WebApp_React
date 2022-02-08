@@ -14,6 +14,7 @@ const Grid = forwardRef((props, ref) => {
     position,
     top,
     left,
+    borderTop,
   } = props;
   const styles = {
     is_flex,
@@ -26,6 +27,7 @@ const Grid = forwardRef((props, ref) => {
     position,
     top,
     left,
+    borderTop,
   };
 
   return (
@@ -49,6 +51,7 @@ Grid.defaultProps = {
   position: "static",
   top: "",
   left: "",
+  borderTop: "none",
 };
 
 const GridBox = styled.div`
@@ -56,6 +59,7 @@ const GridBox = styled.div`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   box-sizing: border-box;
+  border-top: ${(props) => props.borderTop};
   position: ${(props) => props.position};
   top: ${(props) => props.top};
   left: ${(props) => props.left};

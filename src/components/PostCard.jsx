@@ -7,9 +7,40 @@ import { ToggleDown, ToggleUp } from "../assets";
 
 const PostCard = memo(({ post, category }) => {
   const [toggle, setToggle] = useState(false);
+  const [comment, setComment] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
   const { by, id, kids, score, time, title, url } = post;
+
+  const getComment = async () => {
+    if (comment) return;
+
+    setLoading(true);
+    const firstId = await fetch(
+      `https://hacker-news.firebaseio.com/v0/item/${id}.json`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        if (!res.kids) {
+          return null;
+        }
+
+        return res.kids[0];
+      });
+
+    if (!firstId) {
+      setLoading(false);
+      return;
+    }
+
+    const cmt = await fetch(
+      `https://hacker-news.firebaseio.com/v0/item/${firstId}.json`
+    ).then((res) => res.json());
+
+    setComment(cmt.text);
+    setLoading(false);
+  };
+
   return (
     <Card>
       <UpperContainer>
@@ -38,6 +69,7 @@ const PostCard = memo(({ post, category }) => {
           <ImageBox
             _click={() => {
               setToggle(!toggle);
+              getComment();
             }}
             image={ToggleDown}
             alt='toggle down'
@@ -52,9 +84,15 @@ const PostCard = memo(({ post, category }) => {
         )}
       </UpperContainer>
 
-      <CommentBox by={by} time={time} toggle={toggle} />
+      <CommentBox
+        loading={loading}
+        comment={comment}
+        by={by}
+        time={time}
+        toggle={toggle}
+      />
 
-      <CardBottom url={url} score={score} kids={kids} />
+      <CardBottom id={id} url={url} score={score} kids={kids} />
     </Card>
   );
 });

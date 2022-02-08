@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
-import styled from "styled-components";
 import { Grid } from "../elements";
 import { InputArea, MainNav } from "../components";
 import { DailyNewsContainer } from "../container";

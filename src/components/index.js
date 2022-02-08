@@ -10,3 +10,5 @@ export { default as ProfileNav } from "./NavBar/ProfileNav";
 export { default as SearchNav } from "./NavBar/SearchNav";
 export { default as DetailHeader } from "./DetailHeader";
 export { default as DetailCommentBox } from "./Commnents/DetailCommnentBox";
+export { default as Loader } from "./Commnents/Loader";
+export { default as UserDetail } from "./UserDetail";
