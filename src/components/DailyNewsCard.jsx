@@ -13,7 +13,12 @@ const DailyNewsCard = memo(({ info }) => {
     <Card>
       <UpperContainer>
         <Karma karma={karma} />
-        <Author>{by}</Author>
+        <Author
+          onClick={() => {
+            navigate(`/user/${by}`);
+          }}>
+          {by}
+        </Author>
         <Title
           onClick={() => {
             navigate(`/detail/info/${id}`);
@@ -32,7 +37,7 @@ const DailyNewsCard = memo(({ info }) => {
           </Typhography>
         </Grid>
       </UpperContainer>
-      <CardBottom url={url} score={score} kids={kids} />
+      <CardBottom id={id} url={url} score={score} kids={kids} />
     </Card>
   );
 });
