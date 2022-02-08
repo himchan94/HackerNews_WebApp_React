@@ -13,6 +13,12 @@ const getDate = (unix) => {
 
   const date = Math.floor((utc2 - utc1) / _MS_PER_DAY);
 
+  if (-date > 365) {
+    const years = Math.floor(-date / 365);
+
+    return `${years} years ago`;
+  }
+
   if (!date) {
     const hour_gap = today.getHours() - converted.getHours();
 
