@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { DetailHeader } from "../components";
@@ -8,9 +8,9 @@ import { Link } from "../assets";
 import { getDate } from "../functions";
 
 const DetailPage = () => {
-  const [karma, setKarma] = useState("");
-  const location = useLocation();
-  const [category, id] = location.pathname.split("/").slice(2, 4);
+  const [karma, setKarma] = useState(null);
+  const navigate = useNavigate();
+  const [category, id] = useLocation().pathname.split("/").slice(2, 4);
   const posts = useSelector((state) =>
     state[category].post.filter((item) => item.id === Number(id))
   );
@@ -35,7 +35,12 @@ const DetailPage = () => {
       <DetailHeader />
       <PostInfo>
         <Karma karma={karma} />
-        <UserName>{by}</UserName>
+        <UserName
+          onClick={() => {
+            navigate(`/user/${by}`);
+          }}>
+          {by}
+        </UserName>
         <Typhography
           fontFamily='Source Code Pro'
           fontWeight='400'
@@ -48,7 +53,7 @@ const DetailPage = () => {
       </PostInfo>
       <PostArea>
         <PostTitle>{title}</PostTitle>
-        <PostContext>{text && text}</PostContext>
+        {text && <Comment htmlText={text}></Comment>}
       </PostArea>
       <BlurContainer text={text}>
         {url ? (
@@ -60,6 +65,9 @@ const DetailPage = () => {
             top='3.875em'
             left='5.188em'>
             <Button
+              _click={() => {
+                navigate(`/comment/${id}`);
+              }}
               width='8.063em'
               padding='0.375em 0.875em'
               br='44.340em'
@@ -89,6 +97,9 @@ const DetailPage = () => {
             top='4.250em'
             left='7.250em'>
             <Button
+              _click={() => {
+                navigate(`/comment/${id}`);
+              }}
               width='8.063em'
               padding='0.375em 0.875em'
               br='44.340em'
@@ -147,7 +158,9 @@ const PostTitle = styled.h1`
   color: #f1f1f2;
 `;
 
-const PostContext = styled.p`
+const Comment = styled.p.attrs((props) => ({
+  dangerouslySetInnerHTML: { __html: props.htmlText },
+}))`
   box-sizing: border-box;
   width: 20em;
   min-height: 25.938em;

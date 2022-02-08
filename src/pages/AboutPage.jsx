@@ -18,7 +18,7 @@ const AboutPage = () => {
           color='#CECFD4'
           margin='1.750em 0 0 0'
           ls='-0.063em'>
-          This is a simple Hacker News clone, built with{" "}
+          This is a simple Hacker News clone, built with
           <Typhography
             link
             color='#FF3E00'
