@@ -1,38 +1,68 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
+import "abortcontroller-polyfill/dist/polyfill-patch-fetch";
 import styled from "styled-components";
 import { DetailHeader, DetailCommentBox, Spinner } from "../components";
 import { Grid } from "../elements";
+
+const AbortController = window.AbortController;
 
 const CommentPage = () => {
   const [comment, setComment] = useState(null);
   const [loading, setLoading] = useState(false);
   const paramsId = useLocation().pathname.split("/")[2];
+  const controller = new AbortController();
+  const signal = controller.signal;
 
-  useEffect(() => {
-    const getComment = async () => {
+  const promiseAbort = useCallback((abortSignal, array) => {
+    return new Promise(async (resolve, reject) => {
+      abortSignal.addEventListener("abort", () => {
+        const error = new DOMException(
+          "Waiting Promise.all aborted by the user",
+          "AbortError"
+        );
+        reject(error);
+      });
+
+      const res = await Promise.all(array);
+      resolve(res);
+    });
+  }, []);
+
+  const getComment = useCallback(async () => {
+    try {
       setLoading(true);
       const res = await fetch(
-        `https://hacker-news.firebaseio.com/v0/item/${paramsId}.json`
+        `https://hacker-news.firebaseio.com/v0/item/${paramsId}.json`,
+        { signal }
       ).then((res) => res.json());
 
-      if (!res.kids) {
+      if (!res || !res.kids) {
         setLoading(false);
         return;
       }
       const promises = res.kids.map((id) =>
         fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(
-          (response) => response.json()
+          (response) => response.json(),
+          { signal }
         )
       );
 
-      const result = await Promise.all(promises);
+      const result = await promiseAbort(signal, promises);
 
       setComment(result);
       setLoading(false);
-    };
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
+  useEffect(() => {
     getComment();
+
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   return (

@@ -1,8 +1,11 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo, useCallback } from "react";
+import "abortcontroller-polyfill/dist/polyfill-patch-fetch";
 import styled, { css } from "styled-components";
 import { Grid, Typhography, ImageBox } from "../../elements";
 import { ToggleUp, ToggleDown } from "../../assets";
 import { getDate, getComments, createTree } from "../../functions";
+
+const AbortController = window.AbortController;
 
 const DetailCommnentBox = memo(({ comment }) => {
   const [showComment, setShowComment] = useState(false);
@@ -10,15 +13,26 @@ const DetailCommnentBox = memo(({ comment }) => {
   const [tree, setTree] = useState([]);
   const { by, id, text, time, kids } = comment;
 
-  useEffect(() => {
-    const createCmtTree = async (id) => {
-      const res = await getComments(id);
-      setTree(createTree(res));
-    };
+  const controller = new AbortController();
+  const signal = controller.signal;
 
+  const createCmtTree = useCallback(async (id) => {
+    try {
+      const res = await getComments(id, signal);
+      setTree(createTree(res));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
     if (kids) {
       createCmtTree(id);
     }
+
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   const ChildComment = ({ comment }) => {
@@ -30,8 +44,7 @@ const DetailCommnentBox = memo(({ comment }) => {
         <Grid
           height='2em'
           padding='1.125em 0 0.250em 0'
-          margin=' 0 0 0.750em 0'
-          border=''>
+          margin=' 0 0 0.750em 0'>
           <Typhography
             link
             fontFamily='Source Code Pro'

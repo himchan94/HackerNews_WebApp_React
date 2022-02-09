@@ -1,4 +1,4 @@
-const getComments = (id) => {
+const getComments = (id, abortSignal) => {
   let count = 0;
 
   let futureValue = new Promise((resolveAll, rejectAll) => {
@@ -6,6 +6,14 @@ const getComments = (id) => {
     let call = (id) => {
       count++;
       new Promise((resolve, reject) => {
+        abortSignal.addEventListener("abort", () => {
+          const error = new DOMException(
+            "Waiting Promise.all aborted by the user",
+            "AbortError"
+          );
+          rejectAll(error);
+        });
+
         let url = `https://hacker-news.firebaseio.com/v0/item/${id}.json`;
         let comment = {};
         fetch(url)
@@ -18,7 +26,6 @@ const getComments = (id) => {
               comment.kids.forEach((id) => call(id));
             }
 
-            // resolve();
             count--;
             if (count < 1) {
               resolveAll(comments);
