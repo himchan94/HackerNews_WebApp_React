@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, memo } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Grid } from "../../elements";
 
 const ProfileNav = ({ category, changeCategory }) => {
-  const scrollRef = useRef();
-
   return (
     <Grid
       width='20em'
@@ -34,9 +32,6 @@ const ProfileNav = ({ category, changeCategory }) => {
           Favorites
         </NavLi>
       </NavUl>
-      <ScrollContainer>
-        <Scroll ref={scrollRef} />
-      </ScrollContainer>
     </Grid>
   );
 };

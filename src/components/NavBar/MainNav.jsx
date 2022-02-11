@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, memo } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { Grid } from "../../elements";
@@ -12,8 +12,6 @@ const style = {
 };
 
 const MainNav = ({ showDaily }) => {
-  const scrollRef = useRef();
-
   return (
     <Grid
       width='20em'
@@ -65,9 +63,6 @@ const MainNav = ({ showDaily }) => {
           </NavLink>
         </NavLi>
       </NavUl>
-      <ScrollContainer>
-        <Scroll ref={scrollRef} />
-      </ScrollContainer>
     </Grid>
   );
 };
@@ -92,19 +87,4 @@ const NavLi = styled.li`
   & + & {
     margin-left: 0.25em;
   }
-`;
-
-const ScrollContainer = styled.div`
-  position: relative;
-  width: 20em;
-  height: 0.063em;
-`;
-
-const Scroll = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4.813em;
-  height: 100%;
-  background-color: #ff3e00;
 `;
