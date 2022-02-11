@@ -8,8 +8,10 @@ import { Grid } from "../elements";
 const AbortController = window.AbortController;
 
 const CommentPage = () => {
-  const [comment, setComment] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({
+    comment: null,
+    isLoading: false,
+  });
   const paramsId = useLocation().pathname.split("/")[2];
   const controller = new AbortController();
   const signal = controller.signal;
@@ -31,14 +33,14 @@ const CommentPage = () => {
 
   const getComment = useCallback(async () => {
     try {
-      setLoading(true);
+      setData({ ...data, isLoading: true });
       const res = await fetch(
         `https://hacker-news.firebaseio.com/v0/item/${paramsId}.json`,
         { signal }
       ).then((res) => res.json());
 
       if (!res || !res.kids) {
-        setLoading(false);
+        setData({ ...data, isLoading: false });
         return;
       }
       const promises = res.kids.map((id) =>
@@ -49,9 +51,7 @@ const CommentPage = () => {
       );
 
       const result = await promiseAbort(signal, promises);
-
-      setComment(result);
-      setLoading(false);
+      setData({ comment: result, isLoading: false });
     } catch (error) {
       console.log(error);
     }
@@ -71,12 +71,14 @@ const CommentPage = () => {
       <Grid height='4.375em' padding='1.063em 0 1.063em 1.250em'>
         <Title>Comments</Title>
       </Grid>
-      {loading ? (
+      {data.isLoading ? (
         <Spinner />
       ) : (
-        comment &&
-        comment.length !== 0 &&
-        comment.map((cmt) => <DetailCommentBox key={cmt.id} comment={cmt} />)
+        data.comment &&
+        data.comment.length !== 0 &&
+        data.comment.map((cmt) => (
+          <DetailCommentBox key={cmt.id} comment={cmt} />
+        ))
       )}
     </Section>
   );
