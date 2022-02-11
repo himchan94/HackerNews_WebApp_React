@@ -1,5 +1,6 @@
 import React, { useState, useEffect, memo, useCallback } from "react";
 import "abortcontroller-polyfill/dist/polyfill-patch-fetch";
+import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { Grid, Typhography, ImageBox } from "../../elements";
 import { ToggleUp, ToggleDown } from "../../assets";
@@ -11,8 +12,8 @@ const DetailCommnentBox = memo(({ comment }) => {
   const [showComment, setShowComment] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [tree, setTree] = useState([]);
+  const navigate = useNavigate();
   const { by, id, text, time, kids } = comment;
-
   const controller = new AbortController();
   const signal = controller.signal;
 
@@ -53,7 +54,11 @@ const DetailCommnentBox = memo(({ comment }) => {
             lineHeight='0.943em'
             color='#FF3E00'
             td='under-line'
-            ls='-2%'>
+            ls='-2%'
+            _click={(e) => {
+              e.preventDefault();
+              navigate(`/user/${comment.by}`);
+            }}>
             {comment.by}
           </Typhography>
           <Typhography
@@ -94,7 +99,11 @@ const DetailCommnentBox = memo(({ comment }) => {
               lineHeight='0.943em'
               color='#FF3E00'
               td='under-line'
-              ls='-2%'>
+              ls='-2%'
+              _click={(e) => {
+                e.preventDefault();
+                navigate(`/user/${by}`);
+              }}>
               {by}
             </Typhography>
             <Typhography

@@ -1,13 +1,12 @@
-import React from "react";
+import React, { memo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 import { ImageBox, Input } from "../elements";
 import { Logo, Info, GoBack } from "../assets";
 
-const InputArea = ({ type, position }) => {
+const InputArea = memo(({ type, position, _change }) => {
   const navigate = useNavigate();
-
   if (type === "search") {
     return (
       <InputContainer
@@ -25,7 +24,7 @@ const InputArea = ({ type, position }) => {
             navigate(-1);
           }}
         />
-        <Input width='17.250em' />
+        <Input width='17.250em' _change={_change} />
       </InputContainer>
     );
   }
@@ -64,7 +63,7 @@ const InputArea = ({ type, position }) => {
       />
     </InputContainer>
   );
-};
+});
 
 export default InputArea;
 

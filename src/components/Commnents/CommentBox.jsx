@@ -20,7 +20,8 @@ const CommentBox = ({ toggle, by, time, comment, loading }) => {
             lineHeight='0.938em'
             color='#FF3E00'
             margin='0 0.5em 0 0'
-            _click={() => {
+            _click={(e) => {
+              e.preventDefault();
               navigate(`/user/${by}`);
             }}>
             {by}
