@@ -60,7 +60,7 @@ export default Typhography;
 Typhography.defaultProps = {
   link: false,
   td: "none",
-  href: "#",
+  href: "",
   fontFamily: "Noto Sans",
   fontSize: "1em",
   fontStyle: "normal",

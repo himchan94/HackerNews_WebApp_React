@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { ImageBox } from ".";
 import { Search } from "../assets";
 
-const Input = ({ _click, width }) => {
+const Input = ({ _click, width, _change }) => {
   return (
     <InputContainer onClick={_click} width={width}>
       <ImageBox image={Search} alt='search icon' width='0.813em' />
-      <InputArea placeholder='Search' />
+      <InputArea placeholder='Search' onChange={_change} />
     </InputContainer>
   );
 };
