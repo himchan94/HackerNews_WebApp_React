@@ -1,9 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import { ImageBox } from "../elements";
 import { TopIcon } from "../assets";
 
-const Dummy = () => {
+const Dummy = memo(() => {
   return (
     <DummyDiv>
       <ImageBox
@@ -16,7 +16,7 @@ const Dummy = () => {
       />
     </DummyDiv>
   );
-};
+});
 
 export default Dummy;
 

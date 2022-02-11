@@ -1,21 +1,26 @@
 import React, { useState, memo } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { addReadPost } from "../redux/modules/info";
 import { CommentBox, CardBottom } from ".";
 import { ImageBox } from "../elements";
 import { ToggleDown, ToggleUp } from "../assets";
 
 const PostCard = memo(({ post, category }) => {
   const [toggle, setToggle] = useState(false);
-  const [comment, setComment] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({
+    comment: null,
+    isLoading: false,
+  });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { by, id, kids, score, time, title, url } = post;
 
   const getComment = async () => {
-    if (comment) return;
+    if (data.comment) return;
 
-    setLoading(true);
+    setData({ ...data, isLoading: true });
     const firstId = await fetch(
       `https://hacker-news.firebaseio.com/v0/item/${id}.json`
     )
@@ -29,16 +34,14 @@ const PostCard = memo(({ post, category }) => {
       });
 
     if (!firstId) {
-      setLoading(false);
+      setData({ ...data, isLoading: false });
       return;
     }
 
     const cmt = await fetch(
       `https://hacker-news.firebaseio.com/v0/item/${firstId}.json`
     ).then((res) => res.json());
-
-    setComment(cmt.text);
-    setLoading(false);
+    setData({ ...data, comment: cmt.text, isLoading: false });
   };
 
   return (
@@ -47,6 +50,7 @@ const PostCard = memo(({ post, category }) => {
         <Title
           onClick={() => {
             navigate(`/detail/${category}/${id}`);
+            dispatch(addReadPost({ category, post }));
           }}>
           {title}
         </Title>
@@ -85,8 +89,8 @@ const PostCard = memo(({ post, category }) => {
       </UpperContainer>
 
       <CommentBox
-        loading={loading}
-        comment={comment}
+        loading={data.isLoading}
+        comment={data.comment}
         by={by}
         time={time}
         toggle={toggle}

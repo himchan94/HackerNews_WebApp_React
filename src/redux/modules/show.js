@@ -21,12 +21,13 @@ const loading = (status) => {
 };
 
 export const loadPost = () => async (dispatch, getState) => {
-  if (getState().show.isLoading) return;
+  const { isLoading, id, post } = getState().show;
+  if (isLoading) return;
 
   dispatch(loading(true));
 
-  const ids = getState().show.id;
-  const idx = getState().show.post.length;
+  const ids = id;
+  const idx = post.length;
 
   if (idx !== 0 && idx > ids.length) {
     dispatch(loading(false));

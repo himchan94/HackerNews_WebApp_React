@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import "abortcontroller-polyfill/dist/polyfill-patch-fetch";
 import styled from "styled-components";
 import { PostCard, Spinner } from "../../components";
+
+const AbortController = window.AbortController;
 
 const SubmissionContainer = ({ id }) => {
   const [post, setPost] = useState({
@@ -9,9 +12,26 @@ const SubmissionContainer = ({ id }) => {
     isLoading: false,
   });
   const [story, setStory] = useState([]);
+  const controller = new AbortController();
+  const signal = controller.signal;
 
-  useEffect(() => {
-    const loadPost = async () => {
+  const promiseAbort = useCallback((abortSignal, array) => {
+    return new Promise(async (resolve, reject) => {
+      abortSignal.addEventListener("abort", () => {
+        const error = new DOMException(
+          "Waiting Promise.all aborted by the user",
+          "AbortError"
+        );
+        reject(error);
+      });
+
+      const res = await Promise.all(array);
+      resolve(res);
+    });
+  }, []);
+
+  const loadPost = useCallback(async () => {
+    try {
       const ids = post.id;
       const idx = post.loaded_post.length;
 
@@ -33,7 +53,7 @@ const SubmissionContainer = ({ id }) => {
 
       const exactPromises = promises.filter((list) => list !== null);
 
-      const result = await Promise.all(exactPromises);
+      const result = await promiseAbort(signal, exactPromises);
 
       setPost({
         ...post,
@@ -42,8 +62,12 @@ const SubmissionContainer = ({ id }) => {
       });
 
       setStory([...story, ...result.filter((post) => post.type === "story")]);
-    };
+    } catch (error) {
+      console.log(error);
+    }
+  }, [post]);
 
+  useEffect(() => {
     if (post.loaded_post.length === 0) {
       loadPost();
     }
@@ -53,7 +77,7 @@ const SubmissionContainer = ({ id }) => {
     const scroll = (e) => {
       const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
 
-      if (scrollHeight - scrollTop - clientHeight - 20 < 0) {
+      if (scrollHeight - scrollTop - clientHeight === 0) {
         if (post.isLoading) return;
 
         loadPost();
@@ -64,8 +88,9 @@ const SubmissionContainer = ({ id }) => {
 
     return () => {
       root.removeEventListener("scroll", scroll);
+      controller.abort();
     };
-  }, [post]);
+  }, []);
 
   return (
     <Section>

@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import "abortcontroller-polyfill/dist/polyfill-patch-fetch";
 import styled from "styled-components";
 import { DetailHeader } from "../components";
 import { Karma, Typhography, Grid, Button, ImageBox } from "../elements";
 import { Link } from "../assets";
 import { getDate } from "../functions";
+
+const AbortController = window.AbortController;
 
 const DetailPage = () => {
   const [karma, setKarma] = useState(null);
@@ -15,19 +18,31 @@ const DetailPage = () => {
     state[category].post.filter((item) => item.id === Number(id))
   );
   const { by, kids, time, title, url, text } = posts[0];
+  const controller = new AbortController();
+  const signal = controller.signal;
+
+  const getUserInfo = useCallback(async () => {
+    try {
+      const userInfo = await fetch(
+        `https://hacker-news.firebaseio.com/v0/user/${by}.json`,
+        { signal }
+      ).then((res) => res.json());
+
+      setKarma(userInfo.karma);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   useEffect(() => {
     const root = document.getElementById("root");
     root.scrollTop = 0;
 
-    const getUserInfo = async () => {
-      const userInfo = await fetch(
-        `https://hacker-news.firebaseio.com/v0/user/${by}.json`
-      ).then((res) => res.json());
-
-      setKarma(userInfo.karma);
-    };
     getUserInfo();
+
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   return (

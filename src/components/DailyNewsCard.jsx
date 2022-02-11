@@ -1,6 +1,8 @@
 import React, { memo } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { addReadPost } from "../redux/modules/info";
 import { CardBottom } from ".";
 import { Karma, Typhography, Grid } from "../elements";
 import { getDate } from "../functions";
@@ -8,7 +10,7 @@ import { getDate } from "../functions";
 const DailyNewsCard = memo(({ info }) => {
   const { by, id, kids, score, time, title, url, karma } = info;
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   return (
     <Card>
       <UpperContainer>
@@ -22,6 +24,7 @@ const DailyNewsCard = memo(({ info }) => {
         <Title
           onClick={() => {
             navigate(`/detail/info/${id}`);
+            dispatch(addReadPost({ category: "info", post: info }));
           }}>
           {title}
         </Title>

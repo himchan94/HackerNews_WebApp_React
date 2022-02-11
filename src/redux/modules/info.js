@@ -4,6 +4,11 @@ const initialState = {
 };
 
 const UPDATE_DAILY = "UPDATE_DAILY";
+const ADD_READ = "ADD_READ";
+
+export const addReadPost = (post) => {
+  return { type: ADD_READ, post };
+};
 
 const loadNewlyNews = (daily) => {
   return { type: UPDATE_DAILY, daily };
@@ -39,6 +44,11 @@ export default function reducer(state = initialState, action = {}) {
     case "UPDATE_DAILY":
       const post = [...action.daily];
       return { ...state, post };
+
+    case "ADD_READ":
+      const read = [...state.read, action.post];
+
+      return { ...state, read };
 
     default:
       return state;
