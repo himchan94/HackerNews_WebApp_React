@@ -38,7 +38,6 @@ Development: React, redux,redux-thunk, styled-components, react-router-dom
 ```
 #### 2) fetching data using redux-thunk
 
-spendSection 컴포넌트
 ```js
 export const loadPost = () => async (dispatch, getState) => {
   const { isLoading, id, post } = getState().top;
